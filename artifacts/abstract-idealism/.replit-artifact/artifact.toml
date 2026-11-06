@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Abstract Idealism"
+description = "A dark, purple-accented single-page website presenting the metaphysical framework of Abstract Idealism, with two switchable tabs: Computational Construct (comparison with Analytic Idealism) and Mathematical Construct (comparison with the Mathematical Universe Hypothesis)."
+version = "1.0.0"
+id = "artifacts/abstract-idealism"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22797
+
+[services.development]
+run = "pnpm --filter @workspace/abstract-idealism run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abstract-idealism", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/abstract-idealism/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22797"
+BASE_PATH = "/"
